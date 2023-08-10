@@ -2,14 +2,16 @@
 
 ## users テーブル
 
-| Column          | Type      | Options                   |
-| --------------- | --------- | ------------------------- |
-| nick_name       | string    | null: false               | #ニックネーム
-| email           | string    | null: false               | #メールアドレス 
-| password        | string    | null: false               | #パスワード
-| full_name_kanji | string    | null: false               | #フルネーム（漢字）
-| full_name_kana  | string    | null: false               | #フルネーム（カナ）
-| birthdata       | integer   | null: false               | #生年月日
+| Column              | Type      | Options                   |
+| ------------------- | --------- | ------------------------- |
+| nick_name           | string    | null: false               | #ニックネーム
+| email               | string    | null: false               | #メールアドレス 
+| encrypted_password  | string    | null: false               | #パスワード
+| family_name_kanji   | string    | null: false               | #苗字（漢字）（修正済！）
+| personal_name_kanji | string    | null: false               | #氏名（漢字）（修正済！）
+| family_name_kana    | string    | null: false               | #苗字（カナ）（修正済！）
+| personal_name_kana  | string    | null: false               | #氏名（カナ）（修正済！）
+| birthdata           | date      | null: false               | #生年月日（修正済！）
 
 has_many :items
 has_many :buys
@@ -33,24 +35,25 @@ has_one    :buy
 
 ## buys テーブル
 
-| Column   | Type       | Options                        |
-| -------- | ---------- | ------------------------------ |
-| buy_item | string     | null: false                    | #何を買ったか
-| user     | references | null: false,foreign_key: true  | #どのユーザーが
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| item      | references | null: false,foreign_key: true  | #何を買ったか（修正済！）
+| user      | references | null: false,foreign_key: true  | #どのユーザーが
 
 belongs_to :user
 belongs_to :item
-has_many   :sends
+has_one   :send（修正済！）
 
 ## sends テーブル
 
-| Column         | Type    | Options     |
-| -------------- | ------- | ----------- |
-| postal_code    | integer | null: false | #郵便番号
-| prefecture_id  | integer | null: false | #都道府県（アクティブハッシュ）
-| city           | string  | null: false | #市区町村
-| street_address | string  | null: false | #番地
-| building_name  | string  |             | #建物名（任意）
-| phone_number   | integer | null: false | #電話番号
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| postal_code        | string     | null: false                    | #郵便番号（修正済！）
+| shipping_origin_id | integer    | null: false                    | #都道府県（アクティブハッシュ）（修正済！）
+| city               | string     | null: false                    | #市区町村
+| street_address     | string     | null: false                    | #番地
+| building_name      | string     |                                | #建物名（任意）
+| phone_number       | string     | null: false                    | #電話番号（修正済！）
+| buy                | references | null: false,foreign_key: true  | #どの購入記録（修正済！）
 
 belongs_to :buy
