@@ -11,7 +11,7 @@
 | personal_name_kanji | string    | null: false               | #氏名（漢字）
 | family_name_kana    | string    | null: false               | #苗字（カナ）
 | personal_name_kana  | string    | null: false               | #氏名（カナ）
-| birthdata           | date      | null: false               | #生年月日
+| birthdate           | date      | null: false               | #生年月日
 
 has_many :items
 has_many :buys
