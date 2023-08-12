@@ -21,5 +21,8 @@ class User < ApplicationRecord
    # 正規表現（パスワード）
    validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i }
 
+   has_many :items
+   has_many :buys
+
    
 end
