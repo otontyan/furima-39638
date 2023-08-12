@@ -1,4 +1,6 @@
 class Item < ApplicationRecord
+
+  has_one_attached :image
   
   validates :item_name, presence: true
   validates :item_description, presence: true
@@ -11,6 +13,6 @@ class Item < ApplicationRecord
   validates :user, presence: true, foreign_key: true
 
   belongs_to :user
-  has_one    :buy
+  #has_one    :buy
 
 end
