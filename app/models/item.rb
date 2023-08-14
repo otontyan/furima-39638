@@ -14,7 +14,12 @@ class Item < ApplicationRecord
   validates :shipping_cost_id, numericality: { other_than: 1 , message: "can't be blank"} 
   validates :shipping_origin_id, numericality: { other_than: 1 , message: "can't be blank"} 
   validates :days_to_ship_id, numericality: { other_than: 1 , message: "can't be blank"} 
-  validates :price, presence: true #条件を定義（数字のみ=、価格の範囲）
+  
+  with_options presence: true, format: { with: /\A[0-9]+\z/ } do
+    validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },
+                      presence: { message: "can't be blank" }
+  end
+  
   validates :image, presence: true
 
   has_one_attached :image
