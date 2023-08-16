@@ -2,6 +2,9 @@ class ItemsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_item, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_owner, only: [:edit, :destroy]
+
+
 
   def index
     @item = Item.includes(:user).order("created_at DESC")
@@ -52,4 +55,12 @@ class ItemsController < ApplicationController
   def find_item
     @item = Item.find(params[:id])
   end
+
+  def authorize_owner
+    if current_user.id != @item.user_id
+      redirect_to root_path
+   end
+  end
+
+  
 end
