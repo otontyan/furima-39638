@@ -23,6 +23,23 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+
+  def edit
+    @item = Item.find(params[:id])
+    if current_user.id != @item.user_id
+      redirect_to root_path
+   end
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
   def item_params
     params.require(:item).permit(:image, :item_name, :item_description, :category_id, :item_condition_id, :shipping_cost_id, :shipping_origin_id, :days_to_ship_id, :price).merge(user_id: current_user.id)
