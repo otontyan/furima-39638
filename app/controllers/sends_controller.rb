@@ -1,0 +1,5 @@
+class SendsController < ApplicationController
+
+  
+
+end
