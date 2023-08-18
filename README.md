@@ -42,9 +42,9 @@ has_one    :buy
 
 belongs_to :user
 belongs_to :item
-has_one   :send
+has_one   :address
 
-## sends テーブル
+## addresses テーブル
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
