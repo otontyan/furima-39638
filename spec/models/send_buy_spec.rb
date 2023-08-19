@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe SendBuy, type: :model do
   describe '商品購入記録の保存' do
     before do
-       @user = FactoryBot.create(:user)
-       @item = FactoryBot.create(:item)
-       @sendbuy = FactoryBot.build(:send_buy,user_id: @user.id, item_id: @item.id)
-       sleep 0.1
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
+      @sendbuy = FactoryBot.build(:send_buy, user_id: @user.id, item_id: @item.id)
+      sleep 0.1
     end
 
     context '内容に問題ない場合' do
@@ -28,7 +28,7 @@ RSpec.describe SendBuy, type: :model do
       it '郵便番号は『３桁ハイフン４桁』半角英数字でないと保存できないこと' do
         @sendbuy.postal_code = '123-123４'
         @sendbuy.valid?
-        expect(@sendbuy.errors.full_messages).to include("Postal code is invalid")
+        expect(@sendbuy.errors.full_messages).to include('Postal code is invalid')
       end
       it '都道府県に「---」が選択されている場合は購入できないこと' do
         @sendbuy.shipping_origin_id = '1'
@@ -53,17 +53,17 @@ RSpec.describe SendBuy, type: :model do
       it '電話番号が9桁以下だと購入できないこと' do
         @sendbuy.phone_number = '090123456'
         @sendbuy.valid?
-        expect(@sendbuy.errors.full_messages).to include("Phone number is invalid")
+        expect(@sendbuy.errors.full_messages).to include('Phone number is invalid')
       end
       it '電話番号が12桁以上だと購入できない' do
         @sendbuy.phone_number = '090123456789'
         @sendbuy.valid?
-        expect(@sendbuy.errors.full_messages).to include("Phone number is invalid")
+        expect(@sendbuy.errors.full_messages).to include('Phone number is invalid')
       end
       it '電話番号が半角数値でないと購入できないこと' do
         @sendbuy.phone_number = '０9012341234'
         @sendbuy.valid?
-        expect(@sendbuy.errors.full_messages).to include("Phone number is invalid")
+        expect(@sendbuy.errors.full_messages).to include('Phone number is invalid')
       end
       it 'user_idが紐づいていなければ購入できないこと' do
         @sendbuy.user_id = ''
