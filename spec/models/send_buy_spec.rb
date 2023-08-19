@@ -75,6 +75,11 @@ RSpec.describe SendBuy, type: :model do
         @sendbuy.valid?
         expect(@sendbuy.errors.full_messages).to include("Item can't be blank")
       end
+      it 'tokenが空では購入できないこと' do
+        @sendbuy.token = nil
+        @sendbuy.valid?
+        expect(@sendbuy.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end
