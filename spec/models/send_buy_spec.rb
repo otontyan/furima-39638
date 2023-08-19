@@ -25,7 +25,7 @@ RSpec.describe SendBuy, type: :model do
         @sendbuy.valid?
         expect(@sendbuy.errors.full_messages).to include("Postal code can't be blank")
       end
-      it '郵便番号は『３桁ハイフン４桁』半角英数字でないと保存できないこと' do
+      it '郵便番号が半角ハイフンを含む形でなければ購入できない' do
         @sendbuy.postal_code = '123-123４'
         @sendbuy.valid?
         expect(@sendbuy.errors.full_messages).to include('Postal code is invalid')
@@ -60,7 +60,7 @@ RSpec.describe SendBuy, type: :model do
         @sendbuy.valid?
         expect(@sendbuy.errors.full_messages).to include('Phone number is invalid')
       end
-      it '電話番号が半角数値でないと購入できないこと' do
+      it '電話番号に半角数字以外が含まれている場合は購入できない' do
         @sendbuy.phone_number = '０9012341234'
         @sendbuy.valid?
         expect(@sendbuy.errors.full_messages).to include('Phone number is invalid')
